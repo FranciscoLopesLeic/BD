@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS LIVROSBIBLIOTECA;
 DROP TABLE IF EXISTS AQUISICOESBIBLIOTECA;
 
 
+-- AI-enhanced table creation statement
 CREATE TABLE BIBLIOTECA(
 idBiblioteca integer PRIMARY key,
 nome VARCHAR(255) NOT NULL,
@@ -22,13 +23,13 @@ numLivros integer NOT NULL,
 tipologia VARCHAR(255) CHECK(tipologia in ('pública', 'privada')) not null,
 CHECK(horaFecho>horaAbertura)
 );
-
+-- AI-enhanced table creation statement
 CREATE TABLE AUTOR(
     idAutor integer PRIMARY key,
     nome VARCHAR(255) not null,
     biografia text
 );
-
+-- AI-enhanced table creation statement
 CREATE TABLE LIVRO(
     idLivro integer PRIMARY KEY,
     titulo VARCHAR(255) not null,
@@ -40,7 +41,7 @@ CREATE TABLE LIVRO(
     FOREIGN key (idAutor) REFERENCES AUTOR(idAutor),
     unique (isbn)
 );
-
+-- AI-enhanced table creation statement
 CREATE TABLE FUNCIONARIO(
 idFuncionario integer PRIMARY KEY,
 nome VARCHAR(255) not null,
@@ -53,21 +54,21 @@ CHECK(horaEntrada>(select horaAbertura from BIBLIOTECA where idBiblioteca=FUNCIO
 CHECK(horaSaida<(select horaFecho from BIBLIOTECA where idBiblioteca=FUNCIONARIO.idBiblioteca)),
 CHECK(horaSaida>horaEntrada)
 );
-
+-- AI-enhanced table creation statement
 CREATE TABLE AQUISICAO(
     idAquisicao integer PRIMARY key,
     dataA date not null,
     numLIvros integer not null,
-    preco DECIMAL(10, 2) CHECK(preco>0) not null
+    preco real CHECK(preco>0) not null
 );
-
+-- AI-enhanced table creation statement
 CREATE TABLE EDITORA(
     idEditora integer PRIMARY key,
     nome VARCHAR(255) not null,
     morada VARCHAR(255),
     informacaoContacto text
 );
-
+-- AI-enhanced table creation statement
 CREATE TABLE USUARIO(
     idUsuario integer PRIMARY key,
     nome VARCHAR(255) not null,
@@ -75,21 +76,21 @@ CREATE TABLE USUARIO(
     dataAdesao date not null,
     unique(numCartao)
 );
-
+-- AI-enhanced table creation statement
 CREATE TABLE ESTUDANTE(
     dataAdmissao date not null,
     idUsuario integer,
     PRIMARY key (idUsuario),
     FOREIGN key (idUsuario) REFERENCES USUARIO(idUsuario)
 );
-
+-- AI-enhanced table creation statement
 CREATE TABLE PROFESSOR(
     dataAdmissao date not null,
     idUsuario integer,
     PRIMARY key(idUsuario),
     FOREIGN key (idUsuario) REFERENCES USUARIO(idUsuario)
 );
-
+-- AI-enhanced table creation statement
 CREATE TABLE REQUISICAO(
     idRequisicao integer PRIMARY key,
     idLivro integer,
@@ -97,13 +98,13 @@ CREATE TABLE REQUISICAO(
     dataEmissao date not null,
     dataDevolucao date not null,
     dataLimiteDevolucao date not null,
-    valorMulta DECIMAL(10, 2),
+    valorMulta real,
     CHECK(dataDevolucao>dataEmissao),
     CHECK((dataDevolucao<=dataLimiteDevolucao and valorMulta is null) or (dataDevolucao>dataLimiteDevolucao and valorMulta is not null)),
     FOREIGN key (idLivro) REFERENCES LIVRO(idLivro),
     FOREIGN KEY (idUsuario) REFERENCES USUARIO(idUsuario)
 );
-
+-- AI-enhanced table creation statement
 CREATE TABLE LIVROSBIBLIOTECA(
     idLivro integer,
     idBiblioteca integer,
@@ -113,7 +114,7 @@ CREATE TABLE LIVROSBIBLIOTECA(
     FOREIGN key(idLivro) references Livro(idLivro),
     FOREIGN key(idBiblioteca) references BIBLIOTECA(idBiblioteca)
 );
-
+-- AI-enhanced table creation statement
 CREATE TABLE AQUISICOESBIBLIOTECA(
     idAquisicao integer,
     idLivro integer,
