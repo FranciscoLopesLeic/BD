@@ -58,7 +58,7 @@ CREATE TABLE AQUISICAO(
     idAquisicao integer PRIMARY key,
     dataA date not null,
     numLIvros integer not null,
-    preco real CHECK(preco>0) not null
+    preco DECIMAL(10, 2) CHECK(preco>0) not null
 );
 
 CREATE TABLE EDITORA(
@@ -97,7 +97,7 @@ CREATE TABLE REQUISICAO(
     dataEmissao date not null,
     dataDevolucao date not null,
     dataLimiteDevolucao date not null,
-    valorMulta real,
+    valorMulta DECIMAL(10, 2),
     CHECK(dataDevolucao>dataEmissao),
     CHECK((dataDevolucao<=dataLimiteDevolucao and valorMulta is null) or (dataDevolucao>dataLimiteDevolucao and valorMulta is not null)),
     FOREIGN key (idLivro) REFERENCES LIVRO(idLivro),
