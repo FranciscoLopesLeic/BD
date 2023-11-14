@@ -163,5 +163,18 @@ INSERT INTO Biblioteca (
                                 'Pública'
                                 );
 
+INSERT INTO AUTOR (
+                            idAutor,
+                            nome,
+                            biografia
+                 )
+                        VALUES (2018654, 
+                                'Biblioteca Florbela Matosinhos', 
+                                'Rua de Alfredo Cunha',  
+                                '07:00:00', 
+                                '19:00:00',
+                                2333,
+                                'Pública'
+                                );
 
 
