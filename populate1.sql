@@ -169,12 +169,12 @@ INSERT INTO AUTOR (
                             biografia
                  )
                         VALUES (2018654, 
-                                'Biblioteca Florbela Matosinhos', 
-                                'Rua de Alfredo Cunha',  
-                                '07:00:00', 
-                                '19:00:00',
-                                2333,
-                                'Pública'
+                                'José Saramago', 
+                                'Nascido em Santarém e criado em Lisboa, Saramago era filho de camponeses e se formou no ensino técnico como serralheiro mecânico. Para se sustentar, também trabalhou como funcionário público na área da saúde e da Previdência Social.
+
+Seu primeiro romance foi publicado em 1947 e se chamava Terra do Pecado. Conforme foi se inteirando do meio, conseguiu trabalhos mais especializados como jornalista, tradutor e até diretor literário de uma editora. Em paralelo, seguia colaborando em diversas revistas e jornais.
+
+Além de romances e crônicas, Saramago também escreveu poesia e se dedicou ao teatro.'
                                 );
 
 
