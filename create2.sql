@@ -33,13 +33,12 @@ CREATE TABLE AUTOR(
 CREATE TABLE LIVRO(
     idLivro integer PRIMARY KEY,
     titulo VARCHAR(255) not null,
-    isbn integer not null,
+    isbn integer not null unique,
     edicao integer not null,
     genero VARCHAR(255) not null,
     estado VARCHAR(255) CHECK(estado in('disponível','reservado', 'emprestado')) not null,
     idAutor integer,
-    FOREIGN key (idAutor) REFERENCES AUTOR(idAutor),
-    unique (isbn)
+    FOREIGN key (idAutor) REFERENCES AUTOR(idAutor)
 );
 -- AI-enhanced table creation statement
 CREATE TABLE FUNCIONARIO(
@@ -59,7 +58,7 @@ CREATE TABLE AQUISICAO(
     idAquisicao integer PRIMARY key,
     dataA date not null,
     numLIvros integer not null,
-    preco real CHECK(preco>0) not null
+    preco decimal(10,2) CHECK(preco>0) not null
 );
 -- AI-enhanced table creation statement
 CREATE TABLE EDITORA(
@@ -72,23 +71,25 @@ CREATE TABLE EDITORA(
 CREATE TABLE USUARIO(
     idUsuario integer PRIMARY key,
     nome VARCHAR(255) not null,
-    numCartao integer not null,
+    numCartao integer not null unique,
     dataAdesao date not null,
-    unique(numCartao)
+
 );
 -- AI-enhanced table creation statement
 CREATE TABLE ESTUDANTE(
     dataAdmissao date not null,
     idUsuario integer,
     PRIMARY key (idUsuario),
-    FOREIGN key (idUsuario) REFERENCES USUARIO(idUsuario)
+    FOREIGN key (idUsuario) REFERENCES USUARIO(idUsuario) ON DELETE CASCADE ON UPDATE CASCADE,
+    CHECK ((dataAdmissao>(select dataAdesao from USUARIO where idUsuario=USUARIO.idUsuario)) or(dataAdmissao=(select dataAdesao from USUARIO where idUsuario=USUARIO.idUsuario)))
 );
 -- AI-enhanced table creation statement
 CREATE TABLE PROFESSOR(
     dataAdmissao date not null,
     idUsuario integer,
     PRIMARY key(idUsuario),
-    FOREIGN key (idUsuario) REFERENCES USUARIO(idUsuario)
+    FOREIGN key (idUsuario) REFERENCES USUARIO(idUsuario) ON DELETE CASCADE ON UPDATE CASCADE,
+     CHECK ((dataAdmissao>(select dataAdesao from USUARIO where idUsuario=USUARIO.idUsuario)) or(dataAdmissao=(select dataAdesao from USUARIO where idUsuario=USUARIO.idUsuario)))
 );
 -- AI-enhanced table creation statement
 CREATE TABLE REQUISICAO(
@@ -98,7 +99,7 @@ CREATE TABLE REQUISICAO(
     dataEmissao date not null,
     dataDevolucao date not null,
     dataLimiteDevolucao date not null,
-    valorMulta real,
+    valorMulta decimal(10,2),
     CHECK(dataDevolucao>dataEmissao),
     CHECK((dataDevolucao<=dataLimiteDevolucao and valorMulta is null) or (dataDevolucao>dataLimiteDevolucao and valorMulta is not null)),
     FOREIGN key (idLivro) REFERENCES LIVRO(idLivro),
@@ -108,8 +109,7 @@ CREATE TABLE REQUISICAO(
 CREATE TABLE LIVROSBIBLIOTECA(
     idLivro integer,
     idBiblioteca integer,
-    numLivros integer,
-    areaBilioteca integer,
+    areaBiblioteca integer not null,
     PRIMARY KEY(idLivro),
     FOREIGN key(idLivro) references Livro(idLivro),
     FOREIGN key(idBiblioteca) references BIBLIOTECA(idBiblioteca)
@@ -125,4 +125,13 @@ CREATE TABLE AQUISICOESBIBLIOTECA(
     FOREIGN key (idlivro) references LIVRO(idLivro),
     FOREIGN KEY(idEditora) REFERENCES EDITORA(idEditora),
     FOREIGN KEY (idBiblioteca) references BIBLIOTECA(idBiblioteca)
+);
+-- AI-enhanced table creation statement
+CREATE TABLE RESERVA (
+    idLivro INTEGER,
+    idUsuario INTEGER,
+    nrreserva INTEGER,
+    PRIMARY KEY (idLivro, idUsuario),
+    FOREIGN KEY(idLivro) REFERENCES LIVRO(idLivro),
+    FOREIGN KEY (idUsuario) REFERENCES USUARIO(idUsuario)
 );

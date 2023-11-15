@@ -168,7 +168,7 @@ INSERT INTO AUTOR (
                             nome,
                             biografia
                  )
-                        VALUES (2018654, 
+                        VALUES (1, 
                                 'José Saramago', 
                                 'Nascido em Santarém e criado em Lisboa, Saramago era filho de camponeses e se formou no ensino técnico como serralheiro mecânico. Para se sustentar, também trabalhou como funcionário público na área da saúde e da Previdência Social.
 
@@ -177,4 +177,257 @@ Seu primeiro romance foi publicado em 1947 e se chamava Terra do Pecado. Conform
 Além de romances e crônicas, Saramago também escreveu poesia e se dedicou ao teatro.'
                                 );
 
+INSERT INTO AUTOR (
+                            idAutor,
+                            nome,
+                            biografia
+                 )
+                        VALUES (2, 
+                                'William Shakespeare', 
+                                'O escritor inglês começou a trabalhar quando tinha 13 anos depois de uma súbita falência da família. Quando se mudou para Londres, trabalhou como guardador de cavalos na porta do primeiro teatro da cidade. Foi lá que começou a a dar seus primeiros passos nos bastidores e representando papéis menores.'
+                                );
 
+INSERT INTO  LIVRO(
+                        idLivro,
+                        titulo,
+                        isbn,
+                        edicao,
+                        genero,
+                        estado,
+                        idAutor
+                        )
+                        VALUES (1, 
+                                'Princepezinho', 
+                                134543657,  
+                                2, 
+                                'Ficção',
+                                'disponível',
+                                1
+                                );
+
+INSERT INTO  LIVRO(
+                        idLivro,
+                        titulo,
+                        isbn,
+                        edicao,
+                        genero,
+                        estado,
+                        idAutor
+                        )
+                        VALUES (2, 
+                                'Memorial Convento', 
+                                134543643,  
+                                7, 
+                                'Romance',
+                                'reservado',
+                                1
+                                );
+
+INSERT INTO  FUNCIONARIO(
+                                idFuncionario,
+                                nome,
+                                funcao,
+                                horaEntrada,
+                                horaSaida,
+                                idBiblioteca
+                        )
+                        VALUES (112, 
+                                'Maria Oliveira', 
+                                'Bibliotecária',  
+                                '08:00:00', 
+                                '17:00:00',
+                                2
+                                );
+
+INSERT INTO  FUNCIONARIO(
+                                idFuncionario,
+                                nome,
+                                funcao,
+                                horaEntrada,
+                                horaSaida,
+                                idBiblioteca
+                        )
+                        VALUES (114, 
+                                'Carlos Costa', 
+                                'Assistente',  
+                                '09:00:00', 
+                                '15:30:00',
+                                6
+                                );
+
+INSERT INTO  AQUISICAO(
+                                idAquisicao,
+                                dataA,
+                                numLIvros,
+                                preco
+                        )
+                        VALUES (1, 
+                                '2023-01-01', 
+                                758,  
+                                3032.34
+                                );
+
+INSERT INTO  AQUISICAO(
+                                idAquisicao,
+                                dataA,
+                                numLIvros,
+                                preco
+                        )
+                        VALUES (2, 
+                                '2023-06-23', 
+                                432,  
+                                1343
+                                );
+
+INSERT INTO  EDITORA(
+                                idEditora,
+                                nome,
+                                morada,
+                                informacaoContacto
+                        )
+                        VALUES (1, 
+                                'Editora ASA', 
+                                'Rua Alberto Gomes',  
+                                'contactasa@gmail.com'
+                                );
+
+INSERT INTO  EDITORA(
+                                idEditora,
+                                nome,
+                                morada,
+                                informacaoContacto
+                        )
+                        VALUES (2, 
+                                'Editora DEM'
+                                );
+
+INSERT INTO  USUARIO(
+                                idUsuario,
+                                nome,
+                                numCartao,
+                                dataAdesao
+                        )
+                        VALUES (1, 
+                                'Mário Silva', 
+                                20198702,  
+                                '2019-01-15'
+                                );
+
+INSERT INTO  USUARIO(
+                                idUsuario,
+                                nome,
+                                numCartao,
+                                dataAdesao
+                        )
+                        VALUES (2, 
+                                'Leonor Guido', 
+                                20220825,  
+                                '2022-07-02'
+                                );
+
+INSERT INTO  USUARIO(
+                                idUsuario,
+                                nome,
+                                numCartao,
+                                dataAdesao
+                        )
+                        VALUES (3, 
+                                'António Ferreira', 
+                                20170865,  
+                                '2017-04-02'
+                                );
+
+INSERT INTO  ESTUDANTE(
+                                dataAdmissao,
+                                idUsuario
+                        )
+                        VALUES (  
+                                '2019-01-15',
+                                1
+                                );       
+
+INSERT INTO  PROFESSOR(
+                                dataAdmissao,
+                                idUsuario
+                        )
+                        VALUES (  
+                                '2017-04-02',
+                                3
+                                );                      
+
+INSERT INTO  REQUISICAO(
+                                idRequisicao,
+                                idLivro,
+                                idUsuario,
+                                dataEmissao,
+                                dataDevolucao,
+                                dataLimiteDevolucao,
+                                valorMulta
+                        )
+                        VALUES (1, 
+                                2, 
+                                1, 
+                                '2023-02-01', 
+                                '2023-02-15', 
+                                '2023-03-01'
+                                );
+
+INSERT INTO  REQUISICAO(
+                                idRequisicao,
+                                idLivro,
+                                idUsuario,
+                                dataEmissao,
+                                dataDevolucao,
+                                dataLimiteDevolucao,
+                                valorMulta
+                        )
+                        VALUES (2, 
+                                1, 
+                                3, 
+                                '2023-07-01', 
+                                '2023-08-15', 
+                                '2023-07-28',
+                                5.00
+                                );
+
+INSERT INTO  LIVROSBIBLIOTECA(
+                                idLivro,
+                                idBiblioteca,
+                                areaBilioteca
+                        )
+                        VALUES (1, 
+                                1, 
+                                'Secção Ficção'
+                                );
+
+INSERT INTO  LIVROSBIBLIOTECA(
+                                idLivro,
+                                idBiblioteca,
+                                areaBilioteca
+                        )
+                        VALUES (2, 
+                                1, 
+                                'Secção Romance'
+                                );
+
+INSERT INTO AQUISICOESBIBLIOTECA (
+                                        idAquisicao, 
+                                        idLivro, 
+                                        idEditora, 
+                                        idBiblioteca
+                                )
+                        VALUES(         1,
+                                        1,
+                                        1,
+                                        6
+                                );
+
+INSERT INTO RESERVA (
+                                idLivro, 
+                                idUsuario, 
+                                nrreserva
+                                )
+                        VALUES(         1,
+                                        1,
+                                        1
+                                );

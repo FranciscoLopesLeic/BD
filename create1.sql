@@ -107,8 +107,7 @@ CREATE TABLE REQUISICAO(
 CREATE TABLE LIVROSBIBLIOTECA(
     idLivro integer,
     idBiblioteca integer,
-    numLivros integer,
-    areaBilioteca integer,
+    areaBiblioteca integer not null,
     PRIMARY KEY(idLivro),
     FOREIGN key(idLivro) references Livro(idLivro),
     FOREIGN key(idBiblioteca) references BIBLIOTECA(idBiblioteca)
@@ -124,4 +123,13 @@ CREATE TABLE AQUISICOESBIBLIOTECA(
     FOREIGN key (idlivro) references LIVRO(idLivro),
     FOREIGN KEY(idEditora) REFERENCES EDITORA(idEditora),
     FOREIGN KEY (idBiblioteca) references BIBLIOTECA(idBiblioteca)
+);
+
+CREATE TABLE Reserva (
+    idLivro INTEGER,
+    idUsuario INTEGER,
+    nrreserva INTEGER,
+    PRIMARY KEY (idLivro, idUsuario),
+    FOREIGN KEY(idLivro) REFERENCES LIVRO(idLivro),
+    FOREIGN KEY (idUsuario) REFERENCES USUARIO(idUsuario)
 );
