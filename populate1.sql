@@ -1,4 +1,4 @@
-PRAGMA foreign_keys = ON;
+PRAGMA foreign_key = ON;
 BEGIN TRANSACTION;
 
 INSERT INTO Biblioteca (

@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS PROFESSOR;
 DROP TABLE IF EXISTS REQUISICAO;
 DROP TABLE IF EXISTS LIVROSBIBLIOTECA;
 DROP TABLE IF EXISTS AQUISICOESBIBLIOTECA;
+DROP TABLE IF EXISTS RESERVA;
 
 
 CREATE TABLE BIBLIOTECA(
@@ -48,9 +49,13 @@ funcao VARCHAR(255) not null,
 horaEntrada time not null,
 horaSaida time not null,
 idBiblioteca integer,
+horaAbertura time not null,
+horaFecho time not null,
 FOREIGN key (idBiblioteca) REFERENCES BIBLIOTECA(idBiblioteca),
-CHECK(horaEntrada>(select horaAbertura from BIBLIOTECA where idBiblioteca=FUNCIONARIO.idBiblioteca)),
-CHECK(horaSaida<(select horaFecho from BIBLIOTECA where idBiblioteca=FUNCIONARIO.idBiblioteca)),
+FOREIGN KEY (horaAbertura) REFERENCES BIBLIOTECA(horaAbertura),
+FOREIGN KEY (horaFecho) REFERENCES BIBLIOTECA(horaFecho),
+CHECK(horaEntrada>horaAbertura),
+CHECK(horaSaida<horaFecho),
 CHECK(horaSaida>horaEntrada)
 );
 
@@ -125,11 +130,11 @@ CREATE TABLE AQUISICOESBIBLIOTECA(
     FOREIGN KEY (idBiblioteca) references BIBLIOTECA(idBiblioteca)
 );
 
-CREATE TABLE Reserva (
+CREATE TABLE RESERVA (
     idLivro INTEGER,
     idUsuario INTEGER,
     nrreserva INTEGER,
     PRIMARY KEY (idLivro, idUsuario),
     FOREIGN KEY(idLivro) REFERENCES LIVRO(idLivro),
-    FOREIGN KEY (idUsuario) REFERENCES USUARIO(idUsuario)
+    FOREIGN KEY (idUsuario) REFERENCES USUARIO(idUsuario) 
 );

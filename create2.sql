@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS PROFESSOR;
 DROP TABLE IF EXISTS REQUISICAO;
 DROP TABLE IF EXISTS LIVROSBIBLIOTECA;
 DROP TABLE IF EXISTS AQUISICOESBIBLIOTECA;
-
+DROP TABLE IF EXISTS RESERVA;
 
 -- AI-enhanced table creation statement
 CREATE TABLE BIBLIOTECA(
@@ -48,9 +48,13 @@ funcao VARCHAR(255) not null,
 horaEntrada time not null,
 horaSaida time not null,
 idBiblioteca integer,
+horaAbertura time not null,
+horaFecho time not null,
 FOREIGN key (idBiblioteca) REFERENCES BIBLIOTECA(idBiblioteca),
-CHECK(horaEntrada>(select horaAbertura from BIBLIOTECA where idBiblioteca=FUNCIONARIO.idBiblioteca)),
-CHECK(horaSaida<(select horaFecho from BIBLIOTECA where idBiblioteca=FUNCIONARIO.idBiblioteca)),
+FOREIGN KEY (horaAbertura) REFERENCES BIBLIOTECA(horaAbertura),
+FOREIGN KEY (horaFecho) REFERENCES BIBLIOTECA(horaFecho),
+CHECK(horaEntrada>horaAbertura),
+CHECK(horaSaida<horaFecho),
 CHECK(horaSaida>horaEntrada)
 );
 -- AI-enhanced table creation statement
@@ -73,24 +77,28 @@ CREATE TABLE USUARIO(
     nome VARCHAR(255) not null,
     numCartao integer not null unique,
     dataAdesao date not null,
-
+    unique(numCartao)
 );
 -- AI-enhanced table creation statement
 CREATE TABLE ESTUDANTE(
     dataAdmissao date not null,
     idUsuario integer,
+    dataAdesao date not null,
     PRIMARY key (idUsuario),
+    FOREIGN key (dataAdesao) REFERENCES USUARIO(dataAdesao),
     FOREIGN key (idUsuario) REFERENCES USUARIO(idUsuario) ON DELETE CASCADE ON UPDATE CASCADE,
-    CHECK ((dataAdmissao>(select dataAdesao from USUARIO where idUsuario=USUARIO.idUsuario)) or(dataAdmissao=(select dataAdesao from USUARIO where idUsuario=USUARIO.idUsuario)))
+    CHECK (dataAdmissao>=dataAdesao)
 );
 -- AI-enhanced table creation statement
 CREATE TABLE PROFESSOR(
     dataAdmissao date not null,
     idUsuario integer,
+    dataAdesao date not null,
     PRIMARY key(idUsuario),
+    FOREIGN key (dataAdesao) REFERENCES USUARIO(dataAdesao),
     FOREIGN key (idUsuario) REFERENCES USUARIO(idUsuario) ON DELETE CASCADE ON UPDATE CASCADE,
-     CHECK ((dataAdmissao>(select dataAdesao from USUARIO where idUsuario=USUARIO.idUsuario)) or(dataAdmissao=(select dataAdesao from USUARIO where idUsuario=USUARIO.idUsuario)))
-);
+     CHECK (dataAdmissao>=dataAdesao)
+     );
 -- AI-enhanced table creation statement
 CREATE TABLE REQUISICAO(
     idRequisicao integer PRIMARY key,
