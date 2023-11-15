@@ -1,4 +1,4 @@
-PRAGMA foreign_key = ON;
+PRAGMA FOREIGN_KEYS = off;
 BEGIN TRANSACTION;
 
 INSERT INTO Biblioteca (
@@ -298,7 +298,9 @@ INSERT INTO  EDITORA(
                                 informacaoContacto
                         )
                         VALUES (2, 
-                                'Editora DEM'
+                                'Editora DEM',
+                                'Rua Pedro Pereira',
+                                'editoradem@gmail.com'
                                 );
 
 INSERT INTO  USUARIO(
@@ -369,7 +371,8 @@ INSERT INTO  REQUISICAO(
                                 1, 
                                 '2023-02-01', 
                                 '2023-02-15', 
-                                '2023-03-01'
+                                '2023-03-01',
+                                null
                                 );
 
 INSERT INTO  REQUISICAO(
@@ -393,7 +396,7 @@ INSERT INTO  REQUISICAO(
 INSERT INTO  LIVROSBIBLIOTECA(
                                 idLivro,
                                 idBiblioteca,
-                                areaBilioteca
+                                areaBiblioteca
                         )
                         VALUES (1, 
                                 1, 
@@ -403,7 +406,7 @@ INSERT INTO  LIVROSBIBLIOTECA(
 INSERT INTO  LIVROSBIBLIOTECA(
                                 idLivro,
                                 idBiblioteca,
-                                areaBilioteca
+                                areaBiblioteca
                         )
                         VALUES (2, 
                                 1, 
@@ -431,3 +434,5 @@ INSERT INTO RESERVA (
                                         1,
                                         1
                                 );
+COMMIT TRANSACTION;
+PRAGMA foreign_keys = on;

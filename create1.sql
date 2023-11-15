@@ -20,7 +20,7 @@ localizacao VARCHAR(255) not null,
 horaAbertura TIME NOT NULL,
 horaFecho TIME NOT NULL,
 numLivros integer NOT NULL,
-tipologia VARCHAR(255) CHECK(tipologia in ('pública', 'privada')) not null,
+tipologia VARCHAR(255) CHECK(tipologia in ('Pública', 'Privada')) not null,
 CHECK(horaFecho>horaAbertura)
 );
 
@@ -38,8 +38,7 @@ CREATE TABLE LIVRO(
     genero VARCHAR(255) not null,
     estado VARCHAR(255) CHECK(estado in('disponível','reservado', 'emprestado')) not null,
     idAutor integer,
-    FOREIGN key (idAutor) REFERENCES AUTOR(idAutor),
-    unique (isbn)
+    FOREIGN key (idAutor) REFERENCES AUTOR(idAutor)
 );
 
 CREATE TABLE FUNCIONARIO(
@@ -49,8 +48,8 @@ funcao VARCHAR(255) not null,
 horaEntrada time not null,
 horaSaida time not null,
 idBiblioteca integer,
-horaAbertura time not null,
-horaFecho time not null,
+horaAbertura time,
+horaFecho time,
 FOREIGN key (idBiblioteca) REFERENCES BIBLIOTECA(idBiblioteca),
 FOREIGN KEY (horaAbertura) REFERENCES BIBLIOTECA(horaAbertura),
 FOREIGN KEY (horaFecho) REFERENCES BIBLIOTECA(horaFecho),
@@ -69,16 +68,15 @@ CREATE TABLE AQUISICAO(
 CREATE TABLE EDITORA(
     idEditora integer PRIMARY key,
     nome VARCHAR(255) not null,
-    morada VARCHAR(255),
-    informacaoContacto text
+    morada VARCHAR(255) not null,
+    informacaoContacto text not null
 );
 
 CREATE TABLE USUARIO(
     idUsuario integer PRIMARY key,
     nome VARCHAR(255) not null,
     numCartao integer not null,
-    dataAdesao date not null,
-    unique(numCartao)
+    dataAdesao date not null
 );
 
 CREATE TABLE ESTUDANTE(
@@ -112,7 +110,7 @@ CREATE TABLE REQUISICAO(
 CREATE TABLE LIVROSBIBLIOTECA(
     idLivro integer,
     idBiblioteca integer,
-    areaBiblioteca integer not null,
+    areaBiblioteca VARCHAR(255) not null,
     PRIMARY KEY(idLivro),
     FOREIGN key(idLivro) references Livro(idLivro),
     FOREIGN key(idBiblioteca) references BIBLIOTECA(idBiblioteca)
