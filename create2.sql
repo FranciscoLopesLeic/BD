@@ -70,7 +70,7 @@ CREATE TABLE EDITORA(
     idEditora integer PRIMARY key,
     nome VARCHAR(255) not null,
     morada VARCHAR(255) not null,
-    informacaoContacto text not null,
+    informacaoContacto text not null
 );
 
 DROP TABLE IF EXISTS USUARIO;
@@ -106,7 +106,7 @@ CREATE TABLE PROFESSOR(
     FOREIGN key (dataAdesao) REFERENCES USUARIO(dataAdesao),
     FOREIGN key (idUsuario) REFERENCES USUARIO(idUsuario) ON DELETE CASCADE ON UPDATE CASCADE,
      CHECK (dataAdmissao>=dataAdesao)
-     );
+);
 
      
 DROP TABLE IF EXISTS REQUISICAO;
